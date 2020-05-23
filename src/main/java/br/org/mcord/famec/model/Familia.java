@@ -41,7 +41,7 @@ public class Familia implements Serializable {
 	private Set<Habitacao> habitacao;
 
 	@OneToOne(mappedBy = "familia", cascade = CascadeType.ALL)
-	private Set<Responsavel> responsavel;
+	private Responsavel responsavel;
 	
 	@OneToMany(mappedBy = "familia", cascade = CascadeType.ALL)
 	private Set<PerfilSocial> perfilSocial;

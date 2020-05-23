@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "habitacao")
@@ -47,10 +51,10 @@ public class Habitacao implements Serializable {
 	@Column(name = "tp_destino_lixo")
 	private int tpDestinoLixo;
 	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "cd_familia")
-//	private Familia familia;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cd_familia")
+	private Familia familia;
 
 	public Habitacao(){ }
 

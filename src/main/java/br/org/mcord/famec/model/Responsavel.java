@@ -10,8 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "responsavel")
@@ -75,7 +80,7 @@ public class Responsavel implements Serializable {
 	@Column(name = "tp_turno")
 	private int tpTurno;
 	
-	@Column(name = "nm_ocupacao'")
+	@Column(name = "nm_ocupacao")
 	private String nmOcupacao;
 	
 	@Column(name = "vl_renda_mensal")
@@ -87,10 +92,10 @@ public class Responsavel implements Serializable {
 	@Column(name = "nr_telefone_trabalho")
 	private String nrTelefoneTrabalho;
 	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "cd_familia")
-//	private Familia familia;
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "cd_familia")
+	private Familia familia;
 	
 	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)
 	private Set<EnderecoResponsavel> enderecoResponsavel;

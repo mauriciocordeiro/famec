@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "aluno")
@@ -66,10 +70,10 @@ public class Aluno implements Serializable {
 	@Column(name = "lg_almoco_instituicao")
 	private int lgAlmocoInstituicao;
 	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "cd_familia")
-//	private Familia familia;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cd_familia")
+	private Familia familia;
 
 	public Aluno(){ }
 

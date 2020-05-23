@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,7 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import br.org.mcord.famec.filter.JWTAuthorizationFilter;
 
 @SpringBootApplication
-public class FamecApplication {
+public class FamecApplication extends SpringBootServletInitializer {
 	
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 	       return application.sources(FamecApplication.class);

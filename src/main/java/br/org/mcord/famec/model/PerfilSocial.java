@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "perfil_social")
@@ -38,10 +42,10 @@ public class PerfilSocial implements Serializable {
 	@Column(name = "vl_beneficio")
 	private Double vlBeneficio;
 	
-//	@JsonIgnore
-//	@ManyToOne
-//	@JoinColumn(name = "cd_familia")
-//	private Familia familia;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cd_familia")
+	private Familia familia;
 
 	public PerfilSocial(){ }
 

@@ -37,6 +37,8 @@ public class Usuario implements Serializable {
 	
 	@Column(name = "nm_funcao")
 	private String nmFuncao;
+	
+	private String token;
 
 	public Usuario(){ }
 
@@ -97,6 +99,15 @@ public class Usuario implements Serializable {
 	public String getNmFuncao(){
 		return this.nmFuncao;
 	}
+		
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String toString() {
 		String valueToString = "";
 		valueToString += "cdUsuario: " +  getCdUsuario();
