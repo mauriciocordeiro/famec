@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Familia implements Serializable {
 	@Column(name = "cd_familia")
 	private int cdFamilia;
 	
-	@Column(name = "cd_cadastro")
+	@Column(name = "dt_cadastro")
 	private LocalDate dtCadastro;
 	
 	@Column(name = "cd_usuario_cadastro")
@@ -43,7 +44,7 @@ public class Familia implements Serializable {
 	@OneToOne(mappedBy = "familia", cascade = CascadeType.ALL)
 	private Responsavel responsavel;
 	
-	@OneToMany(mappedBy = "familia", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<PerfilSocial> perfilSocial;
 
 	public Familia(){ }
@@ -82,4 +83,36 @@ public class Familia implements Serializable {
 		return this.nrProntuario;
 	}
 
+	public Set<Aluno> getAlunos() {
+		return alunos;
+	}
+
+	public void setAlunos(Set<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public Set<Habitacao> getHabitacao() {
+		return habitacao;
+	}
+
+	public void setHabitacao(Set<Habitacao> habitacao) {
+		this.habitacao = habitacao;
+	}
+
+	public Responsavel getResponsavel() {
+		return responsavel;
+	}
+
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
+	}
+
+	public Set<PerfilSocial> getPerfilSocial() {
+		return perfilSocial;
+	}
+
+	public void setPerfilSocial(Set<PerfilSocial> perfilSocial) {
+		this.perfilSocial = perfilSocial;
+	}
+	
 }

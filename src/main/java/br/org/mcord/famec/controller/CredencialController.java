@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.org.mcord.famec.model.Credencial;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
-import br.org.mcord.famec.util.JWT;
+import br.org.mcord.famec.security.JWT;
 
 @RestController
 @RequestMapping("/api")

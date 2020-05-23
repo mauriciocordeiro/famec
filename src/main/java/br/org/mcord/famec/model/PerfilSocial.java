@@ -4,12 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,9 +46,10 @@ public class PerfilSocial implements Serializable {
 	@Column(name = "vl_beneficio")
 	private Double vlBeneficio;
 	
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "cd_familia")
+	// @JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "cd_familia", nullable = false)
+	@Fetch(FetchMode.JOIN)
 	private Familia familia;
 
 	public PerfilSocial(){ }
@@ -106,5 +111,17 @@ public class PerfilSocial implements Serializable {
 	public Double getVlBeneficio(){
 		return this.vlBeneficio;
 	}
+
+	@JsonIgnore
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	@JsonIgnore
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
+	}
+	
+	
 
 }

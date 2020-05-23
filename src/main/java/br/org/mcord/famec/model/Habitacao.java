@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -51,9 +54,9 @@ public class Habitacao implements Serializable {
 	@Column(name = "tp_destino_lixo")
 	private int tpDestinoLixo;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cd_familia")
+	@Fetch(FetchMode.JOIN)
 	private Familia familia;
 
 	public Habitacao(){ }
@@ -138,6 +141,16 @@ public class Habitacao implements Serializable {
 	}
 	public int getTpDestinoLixo(){
 		return this.tpDestinoLixo;
+	}
+
+	@JsonIgnore
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	@JsonIgnore
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
 	}
 
 }

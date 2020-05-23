@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -92,9 +95,9 @@ public class Responsavel implements Serializable {
 	@Column(name = "nr_telefone_trabalho")
 	private String nrTelefoneTrabalho;
 	
-	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "cd_familia")
+	@Fetch(FetchMode.JOIN)
 	private Familia familia;
 	
 	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)
@@ -280,4 +283,23 @@ public class Responsavel implements Serializable {
 		return this.nrTelefoneTrabalho;
 	}
 
+	@JsonIgnore
+	public Familia getFamilia() {
+		return familia;
+	}
+
+	@JsonIgnore
+	public void setFamilia(Familia familia) {
+		this.familia = familia;
+	}
+
+	public Set<EnderecoResponsavel> getEnderecoResponsavel() {
+		return enderecoResponsavel;
+	}
+
+	public void setEnderecoResponsavel(Set<EnderecoResponsavel> enderecoResponsavel) {
+		this.enderecoResponsavel = enderecoResponsavel;
+	}
+	
+	
 }

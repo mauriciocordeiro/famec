@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import br.org.mcord.famec.filter.JWTAuthorizationFilter;
+import br.org.mcord.famec.security.JWTAuthorizationFilter;
 
 @SpringBootApplication
 public class FamecApplication extends SpringBootServletInitializer {

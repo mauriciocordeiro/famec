@@ -45,7 +45,6 @@ public class EnderecoResponsavel implements Serializable {
 	@Column(name = "nm_estado")
 	private String nmEstado;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cd_responsavel")
 	private Responsavel responsavel;
@@ -117,28 +116,16 @@ public class EnderecoResponsavel implements Serializable {
 	public String getNmEstado(){
 		return this.nmEstado;
 	}
-	public String toString() {
-		String valueToString = "";
-		valueToString += "cdEndereco: " +  getCdEnderecoResponsavel();
-		valueToString += ", cdResponsavel: " +  getCdResponsavel();
-		valueToString += ", nmRua: " +  getNmRua();
-		valueToString += ", nrCasa: " +  getNrCasa();
-		valueToString += ", nmComplemento: " +  getNmComplemento();
-		valueToString += ", nmBairro: " +  getNmBairro();
-		valueToString += ", nmCidade: " +  getNmCidade();
-		valueToString += ", nmEstado: " +  getNmEstado();
-		return "{" + valueToString + "}";
+	
+	@JsonIgnore
+	public Responsavel getResponsavel() {
+		return responsavel;
 	}
 
-	public Object clone() {
-		return new EnderecoResponsavel(getCdEnderecoResponsavel(),
-			getCdResponsavel(),
-			getNmRua(),
-			getNrCasa(),
-			getNmComplemento(),
-			getNmBairro(),
-			getNmCidade(),
-			getNmEstado());
+	@JsonIgnore
+	public void setResponsavel(Responsavel responsavel) {
+		this.responsavel = responsavel;
 	}
+	
 
 }

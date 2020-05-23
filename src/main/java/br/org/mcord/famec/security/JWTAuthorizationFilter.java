@@ -1,4 +1,4 @@
-package br.org.mcord.famec.filter;
+package br.org.mcord.famec.security;
 
 import java.io.IOException;
 import java.util.List;

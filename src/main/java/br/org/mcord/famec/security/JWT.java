@@ -1,4 +1,4 @@
-package br.org.mcord.famec.util;
+package br.org.mcord.famec.security;
 
 import java.util.Date;
 import java.util.List;
