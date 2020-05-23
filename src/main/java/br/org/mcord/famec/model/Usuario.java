@@ -1,13 +1,41 @@
 package br.org.mcord.famec.model;
 
-public class Usuario {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+	
+	private static final long serialVersionUID = -6458272529453856524L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cd_usuario")
 	private int cdUsuario;
+	
+	@Column(name = "nm_usuario")
 	private String nmUsuario;
+	
+	@Column(name = "nm_login")
 	private String nmLogin;
+	
+	@Column(name = "nm_senha")
 	private String nmSenha;
+	
+	@Column(name = "nm_email")
 	private String nmEmail;
+	
+	@Column(name = "st_usuario")
 	private int stUsuario;
+	
+	@Column(name = "nm_funcao")
 	private String nmFuncao;
 
 	public Usuario(){ }

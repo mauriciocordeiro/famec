@@ -1,31 +1,99 @@
 package br.org.mcord.famec.model;
 
-import java.util.GregorianCalendar;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Set;
 
-public class Responsavel {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "responsavel")
+public class Responsavel implements Serializable {
+
+	private static final long serialVersionUID = 3036282568630334669L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cd_responsavel")
 	private int cdResponsavel;
+	
+	@Column(name = "cd_familia", insertable = false, updatable = false)
 	private int cdFamilia;
+	
+	@Column(name = "nm_responsavel")
 	private String nmResponsavel;
+	
+	@Column(name = "tp_parentesco")
 	private int tpParentesco;
+	
+	@Column(name = "tp_genero")
 	private int tpGenero;
-	private GregorianCalendar dtNascimento;
+	
+	@Column(name = "dt_nascimento")
+	private LocalDate dtNascimento;
+	
+	@Column(name = "nm_naturalidade")
 	private String nmNaturalidade;
+	
+	@Column(name = "tp_estado_civil")
 	private int tpEstadoCivil;
+	
+	@Column(name = "nr_telefone_1")
 	private String nrTelefone1;
+	
+	@Column(name = "nr_telefone_2")
 	private String nrTelefone2;
+	
+	@Column(name = "nnr_rg")
 	private String nrRg;
+	
+	@Column(name = "nm_orgao_expedidor_rg")
 	private String nmOrgaoExpedidorRg;
+	
+	@Column(name = "sg_uf_rg")
 	private String sgUfRg;
+	
+	@Column(name = "nr_cpf")
 	private String nrCpf;
+	
+	@Column(name = "ds_escolaridade")
 	private String dsEscolaridade;
+	
+	@Column(name = "lg_estudante")
 	private int lgEstudante;
+	
+	@Column(name = "tp_nivel_escolar")
 	private int tpNivelEscolar;
+	
+	@Column(name = "tp_turno")
 	private int tpTurno;
+	
+	@Column(name = "nm_ocupacao'")
 	private String nmOcupacao;
+	
+	@Column(name = "vl_renda_mensal")
 	private Double vlRendaMensal;
+	
+	@Column(name = "nm_local_trabalho")
 	private String nmLocalTrabalho;
+	
+	@Column(name = "nr_telefone_trabalho")
 	private String nrTelefoneTrabalho;
+	
+//	@JsonIgnore
+//	@ManyToOne
+//	@JoinColumn(name = "cd_familia")
+//	private Familia familia;
+	
+	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)
+	private Set<EnderecoResponsavel> enderecoResponsavel;
 
 	public Responsavel(){ }
 
@@ -34,7 +102,7 @@ public class Responsavel {
 			String nmResponsavel,
 			int tpParentesco,
 			int tpGenero,
-			GregorianCalendar dtNascimento,
+			LocalDate dtNascimento,
 			String nmNaturalidade,
 			int tpEstadoCivil,
 			String nrTelefone1,
@@ -104,10 +172,10 @@ public class Responsavel {
 	public int getTpGenero(){
 		return this.tpGenero;
 	}
-	public void setDtNascimento(GregorianCalendar dtNascimento){
+	public void setDtNascimento(LocalDate dtNascimento){
 		this.dtNascimento=dtNascimento;
 	}
-	public GregorianCalendar getDtNascimento(){
+	public LocalDate getDtNascimento(){
 		return this.dtNascimento;
 	}
 	public void setNmNaturalidade(String nmNaturalidade){
@@ -205,31 +273,6 @@ public class Responsavel {
 	}
 	public String getNrTelefoneTrabalho(){
 		return this.nrTelefoneTrabalho;
-	}
-
-	public Object clone() {
-		return new Responsavel(getCdResponsavel(),
-			getCdFamilia(),
-			getNmResponsavel(),
-			getTpParentesco(),
-			getTpGenero(),
-			getDtNascimento()==null ? null : (GregorianCalendar)getDtNascimento().clone(),
-			getNmNaturalidade(),
-			getTpEstadoCivil(),
-			getNrTelefone1(),
-			getNrTelefone2(),
-			getNrRg(),
-			getNmOrgaoExpedidorRg(),
-			getSgUfRg(),
-			getNrCpf(),
-			getDsEscolaridade(),
-			getLgEstudante(),
-			getTpNivelEscolar(),
-			getTpTurno(),
-			getNmOcupacao(),
-			getVlRendaMensal(),
-			getNmLocalTrabalho(),
-			getNrTelefoneTrabalho());
 	}
 
 }

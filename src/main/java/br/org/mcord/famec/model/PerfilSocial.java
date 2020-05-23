@@ -1,14 +1,47 @@
 package br.org.mcord.famec.model;
 
-public class PerfilSocial {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "perfil_social")
+public class PerfilSocial implements Serializable {
+
+	private static final long serialVersionUID = -4855389770132367275L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cd_perfil_social")
 	private int cdPerfilSocial;
+	
+	@Column(name = "cd_familia", insertable = false, updatable = false)
 	private int cdFamilia;
+	
+	@Column(name = "lg_nis")
 	private int lgNis;
+	
+	@Column(name = "nr_nis")
 	private String nrNis;
+	
+	@Column(name = "lg_beneficio")
 	private int lgBeneficio;
+	
+	@Column(name = "nm_beneficio")
 	private String nmBeneficio;
+	
+	@Column(name = "vl_beneficio")
 	private Double vlBeneficio;
+	
+//	@JsonIgnore
+//	@ManyToOne
+//	@JoinColumn(name = "cd_familia")
+//	private Familia familia;
 
 	public PerfilSocial(){ }
 
@@ -68,27 +101,6 @@ public class PerfilSocial {
 	}
 	public Double getVlBeneficio(){
 		return this.vlBeneficio;
-	}
-	public String toString() {
-		String valueToString = "";
-		valueToString += "cdPerfilSocial: " +  getCdPerfilSocial();
-		valueToString += ", cdFamilia: " +  getCdFamilia();
-		valueToString += ", lgNis: " +  getLgNis();
-		valueToString += ", nrNis: " +  getNrNis();
-		valueToString += ", lgBeneficio: " +  getLgBeneficio();
-		valueToString += ", nmBeneficio: " +  getNmBeneficio();
-		valueToString += ", vlBeneficio: " +  getVlBeneficio();
-		return "{" + valueToString + "}";
-	}
-
-	public Object clone() {
-		return new PerfilSocial(getCdPerfilSocial(),
-			getCdFamilia(),
-			getLgNis(),
-			getNrNis(),
-			getLgBeneficio(),
-			getNmBeneficio(),
-			getVlBeneficio());
 	}
 
 }

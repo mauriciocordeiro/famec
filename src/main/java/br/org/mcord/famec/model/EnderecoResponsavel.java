@@ -1,19 +1,58 @@
 package br.org.mcord.famec.model;
 
-public class EnderecoResponsavel {
+import java.io.Serializable;
 
-	private int cdEndereco;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "endereco_responsavel")
+public class EnderecoResponsavel implements Serializable {
+
+	private static final long serialVersionUID = -7834929780420617486L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cd_endereco_responsavel")
+	private int cdEnderecoResponsavel;
+	
+	@Column(name = "cd_responsavel", insertable = false, updatable = false)
 	private int cdResponsavel;
+	
+	@Column(name = "nm_rua")
 	private String nmRua;
+	
+	@Column(name = "nr_casa")
 	private int nrCasa;
+	
+	@Column(name = "nm_complemento")
 	private String nmComplemento;
+	
+	@Column(name = "nm_bairro")
 	private String nmBairro;
+	
+	@Column(name = "nm_cidade")
 	private String nmCidade;
+	
+	@Column(name = "nm_estado")
 	private String nmEstado;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "cd_responsavel")
+	private Responsavel responsavel;
 
 	public EnderecoResponsavel(){ }
 
-	public EnderecoResponsavel(int cdEndereco,
+	public EnderecoResponsavel(int cdEnderecoResponsavel,
 			int cdResponsavel,
 			String nmRua,
 			int nrCasa,
@@ -21,7 +60,7 @@ public class EnderecoResponsavel {
 			String nmBairro,
 			String nmCidade,
 			String nmEstado){
-		setCdEndereco(cdEndereco);
+		setCdEnderecoResponsavel(cdEnderecoResponsavel);
 		setCdResponsavel(cdResponsavel);
 		setNmRua(nmRua);
 		setNrCasa(nrCasa);
@@ -30,11 +69,11 @@ public class EnderecoResponsavel {
 		setNmCidade(nmCidade);
 		setNmEstado(nmEstado);
 	}
-	public void setCdEndereco(int cdEndereco){
-		this.cdEndereco=cdEndereco;
+	public void setCdEnderecoResponsavel(int cdEnderecoResponsavel){
+		this.cdEnderecoResponsavel=cdEnderecoResponsavel;
 	}
-	public int getCdEndereco(){
-		return this.cdEndereco;
+	public int getCdEnderecoResponsavel(){
+		return this.cdEnderecoResponsavel;
 	}
 	public void setCdResponsavel(int cdResponsavel){
 		this.cdResponsavel=cdResponsavel;
@@ -80,7 +119,7 @@ public class EnderecoResponsavel {
 	}
 	public String toString() {
 		String valueToString = "";
-		valueToString += "cdEndereco: " +  getCdEndereco();
+		valueToString += "cdEndereco: " +  getCdEnderecoResponsavel();
 		valueToString += ", cdResponsavel: " +  getCdResponsavel();
 		valueToString += ", nmRua: " +  getNmRua();
 		valueToString += ", nrCasa: " +  getNrCasa();
@@ -92,7 +131,7 @@ public class EnderecoResponsavel {
 	}
 
 	public Object clone() {
-		return new EnderecoResponsavel(getCdEndereco(),
+		return new EnderecoResponsavel(getCdEnderecoResponsavel(),
 			getCdResponsavel(),
 			getNmRua(),
 			getNrCasa(),

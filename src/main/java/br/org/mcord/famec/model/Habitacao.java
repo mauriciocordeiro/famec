@@ -1,17 +1,56 @@
 package br.org.mcord.famec.model;
 
-public class Habitacao {
+import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "habitacao")
+public class Habitacao implements Serializable {
+
+	private static final long serialVersionUID = 6864144009300268711L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cd_habitacao")
 	private int cdHabitacao;
+	
+	@Column(name = "cd_familia", insertable = false, updatable = false)
 	private int cdFamilia;
+	
+	@Column(name = "tp_situacao")
 	private int tpSituacao;
+	
+	@Column(name = "vl_aluguel")
 	private Double vlAluguel;
+	
+	@Column(name = "nr_comodos")
 	private int nrComodos;
+	
+	@Column(name = "tp_abastecimento")
 	private int tpAbastecimento;
+	
+	@Column(name = "tp_tratamento_agua")
 	private int tpTratamentoAgua;
+	
+	@Column(name = "tp_iluminacao")
 	private int tpIluminacao;
+	
+	@Column(name = "tp_escoamento_sanitario")
 	private int tpEscoamentoSanitario;
+	
+	@Column(name = "tp_destino_lixo")
 	private int tpDestinoLixo;
+	
+//	@JsonIgnore
+//	@ManyToOne
+//	@JoinColumn(name = "cd_familia")
+//	private Familia familia;
 
 	public Habitacao(){ }
 
@@ -95,33 +134,6 @@ public class Habitacao {
 	}
 	public int getTpDestinoLixo(){
 		return this.tpDestinoLixo;
-	}
-	public String toString() {
-		String valueToString = "";
-		valueToString += "cdHabitacao: " +  getCdHabitacao();
-		valueToString += ", cdFamilia: " +  getCdFamilia();
-		valueToString += ", tpSituacao: " +  getTpSituacao();
-		valueToString += ", vlAluguel: " +  getVlAluguel();
-		valueToString += ", nrComodos: " +  getNrComodos();
-		valueToString += ", tpAbastecimento: " +  getTpAbastecimento();
-		valueToString += ", tpTratamentoAgua: " +  getTpTratamentoAgua();
-		valueToString += ", tpIluminacao: " +  getTpIluminacao();
-		valueToString += ", tpEscoamentoSanitario: " +  getTpEscoamentoSanitario();
-		valueToString += ", tpDestinoLixo: " +  getTpDestinoLixo();
-		return "{" + valueToString + "}";
-	}
-
-	public Object clone() {
-		return new Habitacao(getCdHabitacao(),
-			getCdFamilia(),
-			getTpSituacao(),
-			getVlAluguel(),
-			getNrComodos(),
-			getTpAbastecimento(),
-			getTpTratamentoAgua(),
-			getTpIluminacao(),
-			getTpEscoamentoSanitario(),
-			getTpDestinoLixo());
 	}
 
 }
