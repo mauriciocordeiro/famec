@@ -34,15 +34,11 @@ public class FamiliaController {
 		try {
 			
 			List<Familia> familias = new ArrayList<Familia>();
-			
-			System.out.println(keyword);
-			
+						
 			if(keyword == null)
 				familias = familiaService.find(nmAluno, nmResponsavel, nrProntuario);
 			else 
 				familias = familiaRepository.findByKeyword(keyword);
-			
-			System.out.println(familiaRepository.findByKeyword(keyword));
 						
 			if(familias.isEmpty())
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
