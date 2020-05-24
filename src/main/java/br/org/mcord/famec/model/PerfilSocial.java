@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
@@ -46,10 +47,8 @@ public class PerfilSocial implements Serializable {
 	@Column(name = "vl_beneficio")
 	private Double vlBeneficio;
 	
-	// @JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "cd_familia", nullable = false)
-	@Fetch(FetchMode.JOIN)
 	private Familia familia;
 
 	public PerfilSocial(){ }

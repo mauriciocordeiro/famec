@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -96,12 +97,11 @@ public class Responsavel implements Serializable {
 	private String nrTelefoneTrabalho;
 	
 	@OneToOne
-	@JoinColumn(name = "cd_familia")
-	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "cd_familia", nullable = false)
 	private Familia familia;
 	
-	@OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)
-	private Set<EnderecoResponsavel> enderecoResponsavel;
+	@OneToOne
+	private EnderecoResponsavel enderecoResponsavel;
 
 	public Responsavel(){ }
 
@@ -293,11 +293,11 @@ public class Responsavel implements Serializable {
 		this.familia = familia;
 	}
 
-	public Set<EnderecoResponsavel> getEnderecoResponsavel() {
+	public EnderecoResponsavel getEnderecoResponsavel() {
 		return enderecoResponsavel;
 	}
 
-	public void setEnderecoResponsavel(Set<EnderecoResponsavel> enderecoResponsavel) {
+	public void setEnderecoResponsavel(EnderecoResponsavel enderecoResponsavel) {
 		this.enderecoResponsavel = enderecoResponsavel;
 	}
 	

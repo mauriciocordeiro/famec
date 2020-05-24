@@ -20,66 +20,72 @@ import javax.persistence.Table;
 public class Familia implements Serializable {
 
 	private static final long serialVersionUID = -3127631617441485377L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "cd_familia")
 	private int cdFamilia;
-	
+
 	@Column(name = "dt_cadastro")
 	private LocalDate dtCadastro;
-	
+
 	@Column(name = "cd_usuario_cadastro")
 	private int cdUsuarioCadastro;
-	
+
 	@Column(name = "nr_prontuario")
 	private String nrProntuario;
-	
-	@OneToMany(mappedBy = "familia", cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "familia")
 	private Set<Aluno> alunos;
 
-	@OneToMany(mappedBy = "familia", cascade = CascadeType.ALL)
-	private Set<Habitacao> habitacao;
+	@OneToOne(mappedBy = "familia", optional = true)
+	private Habitacao habitacao;
 
-	@OneToOne(mappedBy = "familia", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "familia")
 	private Responsavel responsavel;
-	
-	@OneToMany(mappedBy = "familia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<PerfilSocial> perfilSocial;
 
-	public Familia(){ }
+	@OneToOne(mappedBy = "familia")
+	private PerfilSocial perfilSocial;
 
-	public Familia(int cdFamilia,
-			LocalDate dtCadastro,
-			int cdUsuarioCadastro,
-			String nrProntuario){
+	public Familia() {
+	}
+
+	public Familia(int cdFamilia, LocalDate dtCadastro, int cdUsuarioCadastro, String nrProntuario) {
 		setCdFamilia(cdFamilia);
 		setDtCadastro(dtCadastro);
 		setCdUsuarioCadastro(cdUsuarioCadastro);
 		setNrProntuario(nrProntuario);
 	}
-	public void setCdFamilia(int cdFamilia){
-		this.cdFamilia=cdFamilia;
+
+	public void setCdFamilia(int cdFamilia) {
+		this.cdFamilia = cdFamilia;
 	}
-	public int getCdFamilia(){
+
+	public int getCdFamilia() {
 		return this.cdFamilia;
 	}
-	public void setDtCadastro(LocalDate dtCadastro){
-		this.dtCadastro=dtCadastro;
+
+	public void setDtCadastro(LocalDate dtCadastro) {
+		this.dtCadastro = dtCadastro;
 	}
-	public LocalDate getDtCadastro(){
+
+	public LocalDate getDtCadastro() {
 		return this.dtCadastro;
 	}
-	public void setCdUsuarioCadastro(int cdUsuarioCadastro){
-		this.cdUsuarioCadastro=cdUsuarioCadastro;
+
+	public void setCdUsuarioCadastro(int cdUsuarioCadastro) {
+		this.cdUsuarioCadastro = cdUsuarioCadastro;
 	}
-	public int getCdUsuarioCadastro(){
+
+	public int getCdUsuarioCadastro() {
 		return this.cdUsuarioCadastro;
 	}
-	public void setNrProntuario(String nrProntuario){
-		this.nrProntuario=nrProntuario;
+
+	public void setNrProntuario(String nrProntuario) {
+		this.nrProntuario = nrProntuario;
 	}
-	public String getNrProntuario(){
+
+	public String getNrProntuario() {
 		return this.nrProntuario;
 	}
 
@@ -91,11 +97,11 @@ public class Familia implements Serializable {
 		this.alunos = alunos;
 	}
 
-	public Set<Habitacao> getHabitacao() {
+	public Habitacao getHabitacao() {
 		return habitacao;
 	}
 
-	public void setHabitacao(Set<Habitacao> habitacao) {
+	public void setHabitacao(Habitacao habitacao) {
 		this.habitacao = habitacao;
 	}
 
@@ -107,12 +113,12 @@ public class Familia implements Serializable {
 		this.responsavel = responsavel;
 	}
 
-	public Set<PerfilSocial> getPerfilSocial() {
+	public PerfilSocial getPerfilSocial() {
 		return perfilSocial;
 	}
 
-	public void setPerfilSocial(Set<PerfilSocial> perfilSocial) {
+	public void setPerfilSocial(PerfilSocial perfilSocial) {
 		this.perfilSocial = perfilSocial;
 	}
-	
+
 }

@@ -5,15 +5,13 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -74,8 +72,7 @@ public class Aluno implements Serializable {
 	private int lgAlmocoInstituicao;
 	
 	@ManyToOne
-	@JoinColumn(name = "cd_familia")
-	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "cd_familia", nullable = false)
 	private Familia familia;
 
 	public Aluno(){ }
