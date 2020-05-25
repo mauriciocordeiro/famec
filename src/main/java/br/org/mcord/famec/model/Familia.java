@@ -38,7 +38,7 @@ public class Familia implements Serializable {
 	@OneToMany(mappedBy = "familia")
 	private Set<Aluno> alunos;
 
-	@OneToOne(mappedBy = "familia", optional = true)
+	@OneToOne(mappedBy = "familia")
 	private Habitacao habitacao;
 
 	@OneToOne(mappedBy = "familia")

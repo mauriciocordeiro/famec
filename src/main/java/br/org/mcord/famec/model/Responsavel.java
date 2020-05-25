@@ -100,7 +100,7 @@ public class Responsavel implements Serializable {
 	@JoinColumn(name = "cd_familia", nullable = false)
 	private Familia familia;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "responsavel")
 	private EnderecoResponsavel enderecoResponsavel;
 
 	public Responsavel(){ }

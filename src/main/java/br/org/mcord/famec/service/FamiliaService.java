@@ -83,24 +83,33 @@ public class FamiliaService {
 		
 		Familia _familia = familiaRepository.save(familia);
 		
-		for (Aluno aluno : alunos) {
-			aluno.setFamilia(_familia);
-			alunoRepository.save(aluno);
+		if(alunos != null) {
+			for (Aluno aluno : alunos) {
+				aluno.setFamilia(_familia);
+				alunoRepository.save(aluno);
+			}
+			_familia.setAlunos(alunos);
 		}
-		_familia.setAlunos(alunos);
 		
-		habitacao.setFamilia(_familia);
-		_familia.setHabitacao(habitacaoRepository.save(habitacao));
+		if(habitacao != null) {
+			habitacao.setFamilia(_familia);
+			_familia.setHabitacao(habitacaoRepository.save(habitacao));
+		}
 		
-		perfilSocial.setFamilia(_familia);
-		_familia.setPerfilSocial(perfilSocialRepository.save(perfilSocial));
+		if(perfilSocial != null) {
+			perfilSocial.setFamilia(_familia);
+			_familia.setPerfilSocial(perfilSocialRepository.save(perfilSocial));
+		}
 		
-		responsavel.setFamilia(_familia);
-		_familia.setResponsavel(responsavelRepository.save(responsavel));
+		if(responsavel != null) {
+			responsavel.setFamilia(_familia);
+			_familia.setResponsavel(responsavelRepository.save(responsavel));
+		}
 		
-		enderecoResponsavel.setResponsavel(_familia.getResponsavel());
-		enderecoResponsavelRepository.save(enderecoResponsavel);
-		
+		if(enderecoResponsavel != null) {
+			enderecoResponsavel.setResponsavel(_familia.getResponsavel());
+			enderecoResponsavelRepository.save(enderecoResponsavel);
+		}
 		
 		return _familia;
 	}
