@@ -38,6 +38,9 @@ public class Usuario implements Serializable {
 	@Column(name = "nm_funcao")
 	private String nmFuncao;
 	
+	@Column(name = "tp_permissao")
+	private int tpPermissao;
+	
 	private String token;
 
 	public Usuario(){ }
@@ -48,7 +51,8 @@ public class Usuario implements Serializable {
 			String nmSenha,
 			String nmEmail,
 			int stUsuario,
-			String nmFuncao){
+			String nmFuncao,
+			int tpPermissao){
 		setCdUsuario(cdUsuario);
 		setNmUsuario(nmUsuario);
 		setNmLogin(nmLogin);
@@ -56,6 +60,7 @@ public class Usuario implements Serializable {
 		setNmEmail(nmEmail);
 		setStUsuario(stUsuario);
 		setNmFuncao(nmFuncao);
+		setTpPermissao(tpPermissao);
 	}
 	public void setCdUsuario(int cdUsuario){
 		this.cdUsuario=cdUsuario;
@@ -98,36 +103,20 @@ public class Usuario implements Serializable {
 	}
 	public String getNmFuncao(){
 		return this.nmFuncao;
+	}		
+	public int getTpPermissao() {
+		return tpPermissao;
 	}
-		
+	public void setTpPermissao(int tpPermissao) {
+		this.tpPermissao = tpPermissao;
+	}
+
 	public String getToken() {
 		return token;
 	}
 
 	public void setToken(String token) {
 		this.token = token;
-	}
-
-	public String toString() {
-		String valueToString = "";
-		valueToString += "cdUsuario: " +  getCdUsuario();
-		valueToString += ", nmUsuario: " +  getNmUsuario();
-		valueToString += ", nmLogin: " +  getNmLogin();
-		valueToString += ", nmSenha: " +  getNmSenha();
-		valueToString += ", nmEmail: " +  getNmEmail();
-		valueToString += ", stUsuario: " +  getStUsuario();
-		valueToString += ", nmFuncao: " +  getNmFuncao();
-		return "{" + valueToString + "}";
-	}
-
-	public Object clone() {
-		return new Usuario(getCdUsuario(),
-			getNmUsuario(),
-			getNmLogin(),
-			getNmSenha(),
-			getNmEmail(),
-			getStUsuario(),
-			getNmFuncao());
 	}
 
 }
