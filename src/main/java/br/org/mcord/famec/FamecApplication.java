@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import br.org.mcord.famec.security.JWTAuthorizationFilter;
+import br.org.mcord.famec.config.JWTAuthorizationFilter;
 
 @SpringBootApplication
 public class FamecApplication extends SpringBootServletInitializer {
@@ -49,6 +49,13 @@ public class FamecApplication extends SpringBootServletInitializer {
 	            }
 	        });
 		}
+		
+//		@Autowired
+//	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//	        auth
+//	            .inMemoryAuthentication()
+//	                .withUser("user").password("password").roles("USER");
+//	    }
 	}
 
 }

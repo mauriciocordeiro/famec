@@ -17,11 +17,11 @@ public class Hash {
 		return instance;
 	}
 	
-	public String generateMD5(String source) {
+	public static String generateMD5(String source) {
 		return getInstance().generateHash(source, MD5);
 	}
 	
-	public String generateSHA256(String source) {
+	public static String generateSHA256(String source) {
 		return getInstance().generateHash(source, SHA256);
 	}
 	
