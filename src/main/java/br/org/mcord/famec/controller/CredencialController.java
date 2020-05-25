@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.org.mcord.famec.model.Credencial;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
+import br.org.mcord.famec.security.Hash;
 import br.org.mcord.famec.security.JWT;
 
 @RestController
@@ -39,13 +40,16 @@ public class CredencialController {
 			
 			Usuario usuario = usuarios.get(0);
 			
-			if(!usuario.getNmSenha().equals(credencial.getSenha())) 
+			if(!usuario.getNmSenha().equals(Hash.generateMD5(credencial.getSenha()))) 
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			
 			usuario.setNmSenha(null);
-			usuario.setToken(JWT.generateToken(Integer.toString(usuario.getCdUsuario()), usuario.getNmLogin(), jwtSecret, jwtExp));
+			usuario.setToken(JWT.generateToken(Integer.toString(usuario.getCdUsuario()), usuario.getNmLogin(), jwtSecret, jwtExp, usuario.getNmRole()));
 			
 			return new ResponseEntity<>(usuario, HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace(System.err);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,10 +1,8 @@
 package br.org.mcord.famec.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,12 +54,6 @@ public class FamiliaService {
 				return familiaRepository.findByAlunosNmAlunoContainingAndResponsavelNmResponsavelContaining(nmAluno, nmResponsavel);
 			}
 		}
-	}
-	
-	public List<Familia> find(String keyword) {
-		//List<Familia> familias = new ArrayList<Familia>();
-		
-		return familiaRepository.findByKeyword(keyword);
 	}
 	
 	public Familia save(Familia familia) {

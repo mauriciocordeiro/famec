@@ -38,8 +38,8 @@ public class Usuario implements Serializable {
 	@Column(name = "nm_funcao")
 	private String nmFuncao;
 	
-	@Column(name = "tp_permissao")
-	private int tpPermissao;
+	@Column(name = "nm_role")
+	private String nmRole;
 	
 	private String token;
 
@@ -52,7 +52,7 @@ public class Usuario implements Serializable {
 			String nmEmail,
 			int stUsuario,
 			String nmFuncao,
-			int tpPermissao){
+			String nmRole){
 		setCdUsuario(cdUsuario);
 		setNmUsuario(nmUsuario);
 		setNmLogin(nmLogin);
@@ -60,7 +60,7 @@ public class Usuario implements Serializable {
 		setNmEmail(nmEmail);
 		setStUsuario(stUsuario);
 		setNmFuncao(nmFuncao);
-		setTpPermissao(tpPermissao);
+		setNmRole(nmRole);
 	}
 	public void setCdUsuario(int cdUsuario){
 		this.cdUsuario=cdUsuario;
@@ -104,11 +104,11 @@ public class Usuario implements Serializable {
 	public String getNmFuncao(){
 		return this.nmFuncao;
 	}		
-	public int getTpPermissao() {
-		return tpPermissao;
+	public String getNmRole() {
+		return this.nmRole;
 	}
-	public void setTpPermissao(int tpPermissao) {
-		this.tpPermissao = tpPermissao;
+	public void setNmRole(String nmRole) {
+		this.nmRole = nmRole;
 	}
 
 	public String getToken() {

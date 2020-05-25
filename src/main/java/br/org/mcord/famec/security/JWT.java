@@ -20,9 +20,9 @@ public class JWT {
         return instance;
     }
 		
-	public static String generateToken(String id, String subject, String secret, Long exp) {
+	public static String generateToken(String id, String subject, String secret, Long exp, String role) {
 		
-		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
+		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_"+role);
 		
 		exp = 1000 * 60 * 60 * exp;
 		
