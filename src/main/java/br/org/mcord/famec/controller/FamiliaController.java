@@ -112,5 +112,10 @@ public class FamiliaController {
 		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 	}
 
+	// TODO:
+	@GetMapping("/{id}/matriculas")
+	public ResponseEntity<byte[]> getReport(@PathVariable("id") int cdFamilia) {
+		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	}
 
 }
