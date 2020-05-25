@@ -66,6 +66,7 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
 		<!-- JSON WEB TOKEN -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -77,6 +78,9 @@
 			<artifactId>json</artifactId>
 			<version>20160810</version>
 		</dependency>
+		
+		<!-- SWAGGER -->
+		
 	</dependencies>
 
 	<build>
