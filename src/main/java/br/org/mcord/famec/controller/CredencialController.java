@@ -31,7 +31,6 @@ public class CredencialController {
 	@Value("${br.org.mcord.famec.jwt.exp}")
 	private long jwtExp;
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
@@ -57,7 +56,6 @@ public class CredencialController {
 		}
 	}
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PostMapping("/init")
 	public ResponseEntity<Credencial> init() {
 		try {
