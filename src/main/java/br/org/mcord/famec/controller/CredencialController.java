@@ -34,6 +34,10 @@ public class CredencialController {
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
 			
+//			if(usuarioRepository.findAll().isEmpty()) {
+//				credencial = createUser();
+//			}
+			
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
@@ -55,5 +59,10 @@ public class CredencialController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+//	private Credencial createUser() throws Exception {
+//		Usuario user = usuarioRepository.save(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
+//		return new Credencial(user.getNmLogin(), user.getNmSenha());
+//	}
 
 }
