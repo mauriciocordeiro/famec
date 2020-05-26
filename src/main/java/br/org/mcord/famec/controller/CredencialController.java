@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +30,6 @@ public class CredencialController {
 	@Value("${br.org.mcord.famec.jwt.exp}")
 	private long jwtExp;
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
@@ -57,7 +55,6 @@ public class CredencialController {
 		}
 	}
 	
-	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PostMapping("/init")
 	public ResponseEntity<Credencial> init() {
 		try {
