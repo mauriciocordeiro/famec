@@ -33,11 +33,6 @@ public class CredencialController {
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
-			
-			if(usuarioRepository.findAll().isEmpty()) {
-				credencial = createUser();
-			}
-			
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
@@ -58,6 +53,24 @@ public class CredencialController {
 			e.printStackTrace(System.err);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PostMapping("/init")
+	public ResponseEntity<Credencial> init() {
+		try {
+			Credencial credencial = new Credencial();
+			if(usuarioRepository.findAll().isEmpty()) {
+				 credencial = createUser();
+			}
+			
+			return new ResponseEntity<>(credencial, HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace(System.err);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
 	}
 	
 	private Credencial createUser() throws Exception {
