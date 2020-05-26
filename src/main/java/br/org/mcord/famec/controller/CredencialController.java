@@ -17,6 +17,7 @@ import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.security.Hash;
 import br.org.mcord.famec.security.JWT;
+import br.org.mcord.famec.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api")
@@ -24,6 +25,9 @@ public class CredencialController {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	@Value("${br.org.mcord.famec.jwt.secret}")
 	private String jwtSecret;
@@ -35,6 +39,7 @@ public class CredencialController {
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
+			System.out.println("usuarios.isEmpty: "+usuarios.isEmpty());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			
@@ -75,7 +80,7 @@ public class CredencialController {
 	}
 	
 	private Credencial createUser() throws Exception {
-		Usuario user = usuarioRepository.save(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
+		Usuario user = usuarioService.create(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
 		return new Credencial(user.getNmLogin(), user.getNmSenha());
 	}
 
