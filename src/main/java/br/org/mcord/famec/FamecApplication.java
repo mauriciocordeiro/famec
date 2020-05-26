@@ -29,31 +29,31 @@ public class FamecApplication extends SpringBootServletInitializer {
 		SpringApplication.run(FamecApplication.class, args);
 	}
 	
-	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	@EnableWebSecurity
-	@Configuration
-	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
-				.anyRequest().authenticated();
-			
-			http.cors().configurationSource(new CorsConfigurationSource() {
-	            @Override
-	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-	                return new CorsConfiguration().applyPermitDefaultValues();
-	            }
-	        });
-		}
-		
-//		@Autowired
-//	    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-//	        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//	    }
-	}
+//	@EnableGlobalMethodSecurity(prePostEnabled = true)
+//	@EnableWebSecurity
+//	@Configuration
+//	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//		@Override
+//		protected void configure(HttpSecurity http) throws Exception {
+//			http.csrf().disable()
+//				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+//				.authorizeRequests()
+//				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+//				.anyRequest().authenticated();
+//			
+//			http.cors().configurationSource(new CorsConfigurationSource() {
+//	            @Override
+//	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//	                return new CorsConfiguration().applyPermitDefaultValues();
+//	            }
+//	        });
+//		}
+//		
+////		@Autowired
+////	    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+////	        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+////	    }
+//	}
 
 }
