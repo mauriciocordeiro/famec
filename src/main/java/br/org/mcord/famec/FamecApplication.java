@@ -41,7 +41,7 @@ public class FamecApplication extends SpringBootServletInitializer {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/login", "/api/init").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
 				.anyRequest().authenticated();
 			
 			http.cors().configurationSource(new CorsConfigurationSource() {
