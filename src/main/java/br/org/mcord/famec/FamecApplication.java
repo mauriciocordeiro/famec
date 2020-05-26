@@ -2,14 +2,12 @@ package br.org.mcord.famec;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -52,10 +50,10 @@ public class FamecApplication extends SpringBootServletInitializer {
 	        });
 		}
 		
-		@Autowired
-	    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-	        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-	    }
+//		@Autowired
+//	    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+//	        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+//	    }
 	}
 
 }
