@@ -30,7 +30,7 @@ public class FamecApplication extends SpringBootServletInitializer {
 	}
 	
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	@EnableWebSecurity
+	//@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
