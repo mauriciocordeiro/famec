@@ -29,7 +29,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
 		try {
