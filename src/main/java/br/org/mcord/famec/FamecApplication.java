@@ -2,6 +2,8 @@ package br.org.mcord.famec;
 
 import java.util.Arrays;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -44,25 +46,25 @@ public class FamecApplication extends SpringBootServletInitializer {
 				.antMatchers(HttpMethod.POST, "/api/login", "/api/init").permitAll()
 				.anyRequest().authenticated();
 			
-//			http.cors().configurationSource(new CorsConfigurationSource() {
-//	            @Override
-//	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-//	                return new CorsConfiguration().applyPermitDefaultValues();
-//	            }
-//	        });
+			http.cors().configurationSource(new CorsConfigurationSource() {
+	            @Override
+	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+	                return new CorsConfiguration().applyPermitDefaultValues();
+	            }
+	        });
 		}
 		
-		@Bean
-	    CorsConfigurationSource corsConfigurationSource() {
-	        CorsConfiguration configuration = new CorsConfiguration();
-	        configuration.setAllowedOrigins(Arrays.asList("*"));
-	        configuration.setAllowedMethods(Arrays.asList("*"));
-	        configuration.setAllowedHeaders(Arrays.asList("*"));
-	        configuration.setAllowCredentials(true);
-	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	        source.registerCorsConfiguration("/**", configuration);
-	        return source;
-	    }
+//		@Bean
+//	    CorsConfigurationSource corsConfigurationSource() {
+//	        CorsConfiguration configuration = new CorsConfiguration();
+//	        configuration.setAllowedOrigins(Arrays.asList("*"));
+//	        configuration.setAllowedMethods(Arrays.asList("*"));
+//	        configuration.setAllowedHeaders(Arrays.asList("*"));
+//	        configuration.setAllowCredentials(true);
+//	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//	        source.registerCorsConfiguration("/**", configuration);
+//	        return source;
+//	    }
 	}
 
 }
