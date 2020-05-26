@@ -29,8 +29,8 @@ public class FamecApplication extends SpringBootServletInitializer {
 		SpringApplication.run(FamecApplication.class, args);
 	}
 	
-	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	@EnableWebSecurity
+//	@EnableGlobalMethodSecurity(prePostEnabled = true)
+//	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
