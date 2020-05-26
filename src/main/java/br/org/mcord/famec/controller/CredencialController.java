@@ -16,6 +16,7 @@ import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.security.Hash;
 import br.org.mcord.famec.security.JWT;
+import br.org.mcord.famec.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api")
@@ -23,6 +24,9 @@ public class CredencialController {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	UsuarioService usuarioService;
 
 	@Value("${br.org.mcord.famec.jwt.secret}")
 	private String jwtSecret;
@@ -33,7 +37,6 @@ public class CredencialController {
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
-			
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
@@ -41,6 +44,9 @@ public class CredencialController {
 			Usuario usuario = usuarios.get(0);
 			
 			if(!usuario.getNmSenha().equals(Hash.generateMD5(credencial.getSenha()))) 
+				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+			
+			if(usuario.getStUsuario() != 1)
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			
 			usuario.setNmSenha(null);
@@ -54,6 +60,29 @@ public class CredencialController {
 			e.printStackTrace(System.err);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@PostMapping("/init")
+	public ResponseEntity<Credencial> init() {
+		try {
+			Credencial credencial = new Credencial();
+			if(usuarioRepository.findAll().isEmpty()) {
+				 credencial = createUser();
+			}
+			
+			return new ResponseEntity<>(credencial, HttpStatus.OK);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace(System.err);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}	
+	}
+	
+	private Credencial createUser() throws Exception {
+		Usuario user = usuarioService.create(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
+		return new Credencial(user.getNmLogin(), user.getNmSenha());
 	}
 
 }
