@@ -39,13 +39,15 @@ public class CredencialController {
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
-			System.out.println("usuarios.isEmpty: "+usuarios.isEmpty());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			
 			Usuario usuario = usuarios.get(0);
 			
 			if(!usuario.getNmSenha().equals(Hash.generateMD5(credencial.getSenha()))) 
+				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+			
+			if(usuario.getStUsuario() != 1)
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 			
 			usuario.setNmSenha(null);
