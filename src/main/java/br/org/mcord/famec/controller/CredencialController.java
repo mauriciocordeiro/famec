@@ -34,9 +34,9 @@ public class CredencialController {
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
 			
-//			if(usuarioRepository.findAll().isEmpty()) {
-//				credencial = createUser();
-//			}
+			if(usuarioRepository.findAll().isEmpty()) {
+				credencial = createUser();
+			}
 			
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 			if(usuarios.isEmpty())
@@ -60,9 +60,9 @@ public class CredencialController {
 		}
 	}
 	
-//	private Credencial createUser() throws Exception {
-//		Usuario user = usuarioRepository.save(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
-//		return new Credencial(user.getNmLogin(), user.getNmSenha());
-//	}
+	private Credencial createUser() throws Exception {
+		Usuario user = usuarioRepository.save(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
+		return new Credencial(user.getNmLogin(), user.getNmSenha());
+	}
 
 }
