@@ -30,17 +30,17 @@ public class FamecApplication extends SpringBootServletInitializer {
 	}
 	
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
-	//@EnableWebSecurity
+	@EnableWebSecurity
 	@Configuration
 	class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.csrf().disable()
-				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
-				.anyRequest().authenticated();
+//			http.csrf().disable()
+//				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+//				.authorizeRequests()
+//				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+//				.anyRequest().authenticated();
 			
 			http.cors().configurationSource(new CorsConfigurationSource() {
 	            @Override
