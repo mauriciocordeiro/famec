@@ -1,5 +1,7 @@
 # FAMEC
 
+![](https://img.shields.io/badge/license-GPL--3.0-success)
+
 API para manutenção dos cadastros de educandos da FAMEC
 
 ## Getting Started
