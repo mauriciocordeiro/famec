@@ -2,6 +2,10 @@ language: java
 sudo: true
 dist: trusty
 jdk: oraclejdk8
+
+before_script:
+  - psql -c 'create database famec' -U postgres
+  
 addons:
   apt:
     packages:
