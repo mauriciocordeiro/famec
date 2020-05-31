@@ -33,7 +33,7 @@ public class CredencialController {
 	
 	@Value("${br.org.mcord.famec.jwt.exp}")
 	private long jwtExp;
-	
+		
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
