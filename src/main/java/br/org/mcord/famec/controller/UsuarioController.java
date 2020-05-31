@@ -20,7 +20,7 @@ import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/v1/usuarios")
 public class UsuarioController {
 	
 	@Autowired

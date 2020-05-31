@@ -20,7 +20,7 @@ import br.org.mcord.famec.security.JWT;
 import br.org.mcord.famec.service.UsuarioService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/v1")
 public class CredencialController {
 	
 	@Autowired
@@ -34,10 +34,14 @@ public class CredencialController {
 	
 	@Value("${br.org.mcord.famec.jwt.exp}")
 	private long jwtExp;
-	
+		
 	@PostMapping("/login")
 	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
 		try {
+			if(usuarioRepository.findAll().isEmpty()) {
+				 credencial = createUser();
+			}
+			
 			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 			if(usuarios.isEmpty())
 				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
@@ -63,7 +67,7 @@ public class CredencialController {
 		}
 	}
 	
-	@PostMapping("/init")
+//	@PostMapping("/init")
 	public ResponseEntity<Credencial> init() {
 		try {
 			Credencial credencial = new Credencial();
