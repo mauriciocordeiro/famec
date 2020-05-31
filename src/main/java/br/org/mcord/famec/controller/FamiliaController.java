@@ -22,7 +22,7 @@ import br.org.mcord.famec.repository.FamiliaRepository;
 import br.org.mcord.famec.service.FamiliaService;
 
 @RestController
-@RequestMapping("/api/familias")
+@RequestMapping("/v1/familias")
 public class FamiliaController {
 	
 	@Autowired

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -39,7 +40,7 @@ public class FamecApplication extends SpringBootServletInitializer {
 			http.cors().and().csrf().disable()
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/login", "/api/init").permitAll()
+				.antMatchers(HttpMethod.POST, "/v1/login").permitAll()
 				.anyRequest().authenticated();
 			
 			http.cors().configurationSource(new CorsConfigurationSource() {
@@ -49,6 +50,16 @@ public class FamecApplication extends SpringBootServletInitializer {
 	            }
 	        });
 		}
+		
+		@Override
+	    public void configure(WebSecurity web) throws Exception {
+	        web.ignoring().antMatchers("/v2/api-docs",
+	                                   "/configuration/ui",
+	                                   "/swagger-resources/**",
+	                                   "/configuration/security",
+	                                   "/swagger-ui.html",
+	                                   "/webjars/**");
+	    }
 		
 //		@Bean
 //	    CorsConfigurationSource corsConfigurationSource() {
