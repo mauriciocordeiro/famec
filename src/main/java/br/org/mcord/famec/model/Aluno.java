@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "aluno")
 public class Aluno implements Serializable {
@@ -35,6 +37,7 @@ public class Aluno implements Serializable {
 	@Column(name = "dt_nascimento")
 	private LocalDate dtNascimento;
 	
+	@ApiModelProperty(allowableValues = "1, 2", notes = "1: Masculino, 2: Feminino")
 	@Column(name = "tp_sexo")
 	private int tpSexo;
 	
@@ -47,27 +50,33 @@ public class Aluno implements Serializable {
 	@Column(name = "nr_nivel_escolar")
 	private int nrNivelEscolar;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3", notes = "1: Infantil, 2: Fundamental, 3: Médio")
 	@Column(name = "tp_modalidade_escolar")
 	private int tpModalidadeEscolar;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Matutino, 2: Vespertino, 3: Noturno, 4: Diurno")
 	@Column(name = "tp_horario_escolar")
 	private int tpHorarioEscolar;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Matutino, 2: Vespertino, 3: Noturno, 4: Diurno")
 	@Column(name = "tp_turno_famec")
 	private int tpTurnoFamec;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Inativo, 1: Ativo")
 	@Column(name = "st_aluno")
 	private int stAluno;
 	
 	@Column(name = "hr_saida")
 	private LocalDate hrSaida;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Sozinho, 1: Acompanhado")
 	@Column(name = "lg_acompanhante_saida")
 	private int lgAcompanhanteSaida;
 	
 	@Column(name = "nm_acompanhante_saida")
 	private String nmAcompanhanteSaida;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: NÂO almoça na FAMEC, 1: Almoça na FAMEC")
 	@Column(name = "lg_almoco_instituicao")
 	private int lgAlmocoInstituicao;
 	

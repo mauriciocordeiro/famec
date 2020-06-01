@@ -21,6 +21,8 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 
 @Entity
 @Table(name = "responsavel")
@@ -39,9 +41,11 @@ public class Responsavel implements Serializable {
 	@Column(name = "nm_responsavel")
 	private String nmResponsavel;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4, 5", notes = "1: Mãe/Pai, 2: Avó/Avô, 3: Irmã/Irmão, 4: Tia/Tio, 5: Outros")
 	@Column(name = "tp_parentesco")
 	private int tpParentesco;
 	
+	@ApiModelProperty(allowableValues = "1, 2", notes = "1: Masculino, 2: Feminino")
 	@Column(name = "tp_genero")
 	private int tpGenero;
 	
@@ -51,6 +55,7 @@ public class Responsavel implements Serializable {
 	@Column(name = "nm_naturalidade")
 	private String nmNaturalidade;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4, 5", notes = "1: Solteiro, 2: Casado, 3: Separado, 4: Divorciado, 5: Viúvo")
 	@Column(name = "tp_estado_civil")
 	private int tpEstadoCivil;
 	
@@ -66,6 +71,7 @@ public class Responsavel implements Serializable {
 	@Column(name = "nm_orgao_expedidor_rg")
 	private String nmOrgaoExpedidorRg;
 	
+	@ApiModelProperty(allowableValues = "AC, AL, AM, AP, BA, CE, DF, ES, GO, MA, MG, MS, MT, PA, PB, PE, PI, PR, RJ, RN, RO, RR, RS, SC, SE, SP, TO")
 	@Column(name = "sg_uf_rg")
 	private String sgUfRg;
 	
@@ -75,12 +81,15 @@ public class Responsavel implements Serializable {
 	@Column(name = "ds_escolaridade")
 	private String dsEscolaridade;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Não, 1: Sim")
 	@Column(name = "lg_estudante")
 	private int lgEstudante;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Fundamental, 2: Médio, 3: Superior, 4: Outro")
 	@Column(name = "tp_nivel_escolar")
 	private int tpNivelEscolar;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Matutino, 2: Vespertino, 3: Noturno, 4: Diurno")
 	@Column(name = "tp_turno")
 	private int tpTurno;
 	

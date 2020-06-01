@@ -1,10 +1,6 @@
 package br.org.mcord.famec.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,80 +9,32 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.org.mcord.famec.model.Credencial;
 import br.org.mcord.famec.model.Usuario;
-import br.org.mcord.famec.repository.UsuarioRepository;
-import br.org.mcord.famec.security.Hash;
-import br.org.mcord.famec.security.JWT;
 import br.org.mcord.famec.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@Api(tags = {"Autenticação"})
 @RestController
 @RequestMapping("/v1")
 public class CredencialController {
 	
 	@Autowired
-	UsuarioRepository usuarioRepository;
-	
-	@Autowired
 	UsuarioService usuarioService;
-
-	@Value("${br.org.mcord.famec.jwt.secret}")
-	private String jwtSecret;
-	
-	@Value("${br.org.mcord.famec.jwt.exp}")
-	private long jwtExp;
 		
+	@ApiOperation(value = "Realiza a autenticação do usuário da API")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Autenticado."),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 401, message = "Falha na autenticação"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PostMapping("/login")
-	public ResponseEntity<Usuario> login(@RequestBody Credencial credencial) {
-		try {
-			if(usuarioRepository.findAll().isEmpty()) {
-				 credencial = createUser();
-			}
-			
-			List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
-			if(usuarios.isEmpty())
-				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-			
-			Usuario usuario = usuarios.get(0);
-			
-			if(!usuario.getNmSenha().equals(Hash.generateMD5(credencial.getSenha()))) 
-				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-			
-			if(usuario.getStUsuario() != 1)
-				return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-			
-			usuario.setNmSenha(null);
-			usuario.setToken(JWT.generateToken(Integer.toString(usuario.getCdUsuario()), usuario.getNmLogin(), jwtSecret, jwtExp, usuario.getNmRole()));
-			
-			return new ResponseEntity<>(usuario, HttpStatus.OK);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	public ResponseEntity<Usuario> login(@ApiParam(value = "Dados de acesso") @RequestBody Credencial credencial) {
+		return ResponseEntity.ok(usuarioService.auth(credencial));
 	}
 	
-//	@PostMapping("/init")
-	public ResponseEntity<Credencial> init() {
-		try {
-			Credencial credencial = new Credencial();
-			if(usuarioRepository.findAll().isEmpty()) {
-				 credencial = createUser();
-			}
-			
-			return new ResponseEntity<>(credencial, HttpStatus.OK);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	
-	}
-	
-	private Credencial createUser() throws Exception {
-		Usuario user = usuarioService.create(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
-		return new Credencial(user.getNmLogin(), user.getNmSenha());
-	}
 
 }

@@ -18,6 +18,8 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "perfil_social")
 public class PerfilSocial implements Serializable {
@@ -32,12 +34,14 @@ public class PerfilSocial implements Serializable {
 	@Column(name = "cd_familia", insertable = false, updatable = false)
 	private int cdFamilia;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Não, 1: Sim")
 	@Column(name = "lg_nis")
 	private int lgNis;
 	
 	@Column(name = "nr_nis")
 	private String nrNis;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Não, 1: Sim")
 	@Column(name = "lg_beneficio")
 	private int lgBeneficio;
 	
