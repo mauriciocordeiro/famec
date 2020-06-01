@@ -1,4 +1,4 @@
-package br.org.mcord.famec;
+package br.org.mcord.famec.config;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class SwaggerConfig {
     }
     
     private ApiKey apiKey() {
-        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+        return new ApiKey("Authorization", AUTHORIZATION_HEADER, "header");
     }
 
     private SecurityContext securityContext() {
