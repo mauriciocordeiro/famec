@@ -15,10 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.mcord.famec.exception.BadRequestException;
+import br.org.mcord.famec.exception.InternalServerErrorException;
+import br.org.mcord.famec.exception.NotFoundException;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@Api(tags = {"Usuários"})
 @RestController
 @RequestMapping("/v1/usuarios")
 public class UsuarioController {
@@ -29,72 +37,70 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	
+	@ApiOperation(value = "Registra um novo usuário")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Registrado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
-		try {
-			return new ResponseEntity<>(usuarioService.create(usuario), HttpStatus.CREATED);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+		return ResponseEntity.ok(usuarioService.create(usuario));
 	}
 	
+	@ApiOperation(value = "Edita o registro de um usuário")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Editado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") int cdUsuario, @RequestBody Usuario usuario) {
-		try {
-			if(!usuarioRepository.findById(cdUsuario).isPresent())
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
-			return new ResponseEntity<>(usuarioService.update(usuario), HttpStatus.OK);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+		if(!usuarioRepository.findById(cdUsuario).isPresent())
+			throw new NotFoundException("Usuário não encontrado");
+		
+		return ResponseEntity.ok(usuarioService.update(usuario));
 	}
 	
+	@ApiOperation(value = "Recupera lista de usuários")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Lista gerada"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("")
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
-		try {
-			List<Usuario> usuarios = usuarioService.findAll();
-			if(usuarios.isEmpty())
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			
-			return new ResponseEntity<>(usuarios, HttpStatus.OK);			
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+		List<Usuario> usuarios = usuarioService.findAll();
+		if(usuarios.isEmpty())
+			throw new NotFoundException("Nenhum usuário encontrado");
+		
+		return ResponseEntity.ok(usuarios);
 	}
 	
+	@ApiOperation(value = "Recupera usuário com base no id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Lista gerada"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") int cdUsuario) {
-		try {
-			Optional<Usuario> usuario = usuarioRepository.findById(cdUsuario);
-			
-			if(!usuario.isPresent())
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			
-			return new ResponseEntity<>(usuario.get(), HttpStatus.OK);			
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+		Optional<Usuario> usuario = usuarioRepository.findById(cdUsuario);
+		
+		if(!usuario.isPresent())
+			throw new NotFoundException("Usuário não encontrado");
+		
+		return ResponseEntity.ok(usuario.get());
 	}
 	
 }

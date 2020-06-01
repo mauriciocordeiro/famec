@@ -5,6 +5,11 @@ Todas as alterações relevantes a este projeto serão documentadas neste arquiv
 O  formato pe baseado em [Mantenha um Changelog](https://keepachangelog.com/pt-BR/1.0.0/), e este projeto segue o [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
 
+## [1.1.0] - 2020-05-30
+### Adicionado
+- Versionamento da API;
+- Documentação dos recursos com Swagger
+
 ## [1.0.0] - 2020-05-26
 ### Adicionado
 - API `/usuarios`;
