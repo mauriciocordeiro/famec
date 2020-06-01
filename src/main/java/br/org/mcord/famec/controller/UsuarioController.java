@@ -21,7 +21,12 @@ import br.org.mcord.famec.exception.NotFoundException;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.service.UsuarioService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@Api(tags = {"Usuários"})
 @RestController
 @RequestMapping("/v1/usuarios")
 public class UsuarioController {
@@ -32,12 +37,26 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService usuarioService;
 	
+	@ApiOperation(value = "Registra um novo usuário")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Registrado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("")
 	public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
 		return ResponseEntity.ok(usuarioService.create(usuario));
 	}
 	
+	@ApiOperation(value = "Edita o registro de um usuário")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Editado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable("id") int cdUsuario, @RequestBody Usuario usuario) {
@@ -47,6 +66,14 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarioService.update(usuario));
 	}
 	
+	@ApiOperation(value = "Recupera lista de usuários")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Lista gerada"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("")
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
@@ -57,6 +84,14 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuarios);
 	}
 	
+	@ApiOperation(value = "Recupera usuário com base no id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Lista gerada"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") int cdUsuario) {

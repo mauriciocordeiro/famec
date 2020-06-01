@@ -22,7 +22,12 @@ import br.org.mcord.famec.exception.NotImplementedException;
 import br.org.mcord.famec.model.Familia;
 import br.org.mcord.famec.repository.FamiliaRepository;
 import br.org.mcord.famec.service.FamiliaService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+@Api(tags = {"Famílias"})
 @RestController
 @RequestMapping("/v1/familias")
 public class FamiliaController {
@@ -33,6 +38,14 @@ public class FamiliaController {
 	@Autowired
 	FamiliaService familiaService;
 	
+	@ApiOperation(value = "Recupera lista de famílias")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Lista gerada"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("")
 	public ResponseEntity<List<Familia>> getAllFamilias(
@@ -48,6 +61,14 @@ public class FamiliaController {
 		return ResponseEntity.ok(familias);
 	}
 	
+	@ApiOperation(value = "Recupera família com base no id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Registro encontrado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 404, message = "Nenhum resultado encontrado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Familia> getFamiliaById(@PathVariable("id") int cdFamilia) {
@@ -58,6 +79,13 @@ public class FamiliaController {
 		return ResponseEntity.ok(familia.get());	
 	}
 	
+	@ApiOperation(value = "Registra uma nova família")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Registrado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PostMapping("")
 	public ResponseEntity<Familia> createFamilia(@RequestBody Familia familia) {
@@ -65,6 +93,13 @@ public class FamiliaController {
 		return ResponseEntity.ok(_familia);
 	}
 	
+	@ApiOperation(value = "Edita o registro de uma família")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Editado"),
+			@ApiResponse(code = 400, message = "Erro na requisição"),
+			@ApiResponse(code = 403, message = "Usuário não autenticado"),
+			@ApiResponse(code = 500, message = "Erro no servidor")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Familia> updateFamilia(@PathVariable("id") int cdFamilia, @RequestBody Familia familia) {
@@ -77,12 +112,20 @@ public class FamiliaController {
 		return ResponseEntity.ok(_familia);
 	}
 	
+	@ApiOperation(value = "Apaga o registro de uma família")
+	@ApiResponses(value = {
+			@ApiResponse(code = 501, message = "Recurso não implementado")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<HttpStatus> deleteFamiliaById(@PathVariable("id") int cdFamilia) {
 		throw new NotImplementedException("Recurso não implementado");
 	}
 	
+	@ApiOperation(value = "Apaga o registro de famílias")
+	@ApiResponses(value = {
+			@ApiResponse(code = 501, message = "Recurso não implementado")
+	})
 	@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("")
 	public ResponseEntity<HttpStatus> deleteAllFamilia() {
@@ -90,6 +133,10 @@ public class FamiliaController {
 	}
 
 	// TODO:
+	@ApiOperation(value = "Gera comprovante de matrícula dos alunos da familia")
+	@ApiResponses(value = {
+			@ApiResponse(code = 501, message = "Recurso não implementado")
+	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}/matriculas")
 	public ResponseEntity<byte[]> getReport(@PathVariable("id") int cdFamilia) {

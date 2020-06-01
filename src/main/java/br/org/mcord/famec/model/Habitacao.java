@@ -18,6 +18,8 @@ import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "habitacao")
 public class Habitacao implements Serializable {
@@ -32,6 +34,7 @@ public class Habitacao implements Serializable {
 	@Column(name = "cd_familia", insertable = false, updatable = false)
 	private int cdFamilia;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4, 5", notes = "1: Própria, 2: Alugada, 3: Cedida, 4: Invasão, 5: De favor")
 	@Column(name = "tp_situacao")
 	private int tpSituacao;
 	
@@ -41,18 +44,23 @@ public class Habitacao implements Serializable {
 	@Column(name = "nr_comodos")
 	private int nrComodos;
 	
+	@ApiModelProperty(allowableValues = "1", notes = "1: Reda pública")
 	@Column(name = "tp_abastecimento")
 	private int tpAbastecimento;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Filtração, 2: Fervura, 3: S/ tratamento, 4: Outros")
 	@Column(name = "tp_tratamento_agua")
 	private int tpTratamentoAgua;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3", notes = "1: Medidor próprio, 2: S/ medidor, 3: Outros")
 	@Column(name = "tp_iluminacao")
 	private int tpIluminacao;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4", notes = "1: Coletado, 2: Fossa, 3: Céu aberto, 4: Outros")
 	@Column(name = "tp_escoamento_sanitario")
 	private int tpEscoamentoSanitario;
 	
+	@ApiModelProperty(allowableValues = "1, 2, 3, 4, 5", notes = "1: Coletado, 2: Queimado, 3: Enterrado, 4: Céu aberto, 5: Outros")
 	@Column(name = "tp_destino_lixo")
 	private int tpDestinoLixo;
 	
