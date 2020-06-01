@@ -4,17 +4,28 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import br.org.mcord.famec.exception.UnauthorizedException;
+import br.org.mcord.famec.model.Credencial;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
 import br.org.mcord.famec.security.Hash;
+import br.org.mcord.famec.security.JWT;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
+	
+
+	@Value("${br.org.mcord.famec.jwt.secret}")
+	private String jwtSecret;
+	
+	@Value("${br.org.mcord.famec.jwt.exp}")
+	private long jwtExp;
 	
 	public List<Usuario> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
@@ -55,6 +66,35 @@ public class UsuarioService {
 		updated.setNmSenha(null);
 		
 		return updated;
+	}
+	
+	public Usuario auth(Credencial credencial) {
+		if(usuarioRepository.findAll().isEmpty()) {
+			 credencial = createUser();
+		}
+		
+		List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
+		if(usuarios.isEmpty())
+			throw new UnauthorizedException("Usuário inválido");
+		
+		Usuario usuario = usuarios.get(0);
+		
+		if(!usuario.getNmSenha().equals(Hash.generateMD5(credencial.getSenha()))) 
+			throw new UnauthorizedException("Senha inválida");
+		
+		if(usuario.getStUsuario() != 1)
+			throw new UnauthorizedException("Usuário inativo");
+		
+		usuario.setNmSenha(null);
+		usuario.setToken(JWT.generateToken(Integer.toString(usuario.getCdUsuario()), usuario.getNmLogin(), jwtSecret, jwtExp, usuario.getNmRole()));
+		
+		return usuario;
+	}
+	
+
+	private Credencial createUser() {
+		Usuario user = create(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
+		return new Credencial(user.getNmLogin(), user.getNmSenha());
 	}
 
 }

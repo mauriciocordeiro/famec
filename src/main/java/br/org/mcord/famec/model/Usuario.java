@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
@@ -32,12 +34,14 @@ public class Usuario implements Serializable {
 	@Column(name = "nm_email")
 	private String nmEmail;
 	
+	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Inativo, 1: Ativo")
 	@Column(name = "st_usuario")
 	private int stUsuario;
 	
 	@Column(name = "nm_funcao")
 	private String nmFuncao;
 	
+	@ApiModelProperty(allowableValues = "USER, ADMIN")
 	@Column(name = "nm_role")
 	private String nmRole;
 	
