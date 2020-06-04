@@ -95,7 +95,7 @@ public class UsuarioController {
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable("id") int cdUsuario) {
-		Optional<Usuario> usuario = usuarioRepository.findById(cdUsuario);
+		Optional<Usuario> usuario = usuarioService.findById(cdUsuario);
 		
 		if(!usuario.isPresent())
 			throw new NotFoundException("Usuário não encontrado");
