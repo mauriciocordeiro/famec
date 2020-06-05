@@ -1,11 +1,14 @@
 package br.org.mcord.famec;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,6 +19,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import br.org.mcord.famec.config.JWTAuthorizationFilter;
 
@@ -43,12 +50,12 @@ public class FamecApplication extends SpringBootServletInitializer {
 				.antMatchers(HttpMethod.POST, "/v1/login").permitAll()
 				.anyRequest().authenticated();
 			
-			http.cors().configurationSource(new CorsConfigurationSource() {
-	            @Override
-	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-	                return new CorsConfiguration().applyPermitDefaultValues();
-	            }
-	        });
+//			http.cors().configurationSource(new CorsConfigurationSource() {
+//	            @Override
+//	            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+//	                return new CorsConfiguration().applyPermitDefaultValues();
+//	            }
+//	        });
 		}
 		
 		@Override
@@ -62,16 +69,26 @@ public class FamecApplication extends SpringBootServletInitializer {
 	    }
 		
 //		@Bean
-//	    CorsConfigurationSource corsConfigurationSource() {
-//	        CorsConfiguration configuration = new CorsConfiguration();
-//	        configuration.setAllowedOrigins(Arrays.asList("*"));
-//	        configuration.setAllowedMethods(Arrays.asList("*"));
-//	        configuration.setAllowedHeaders(Arrays.asList("*"));
-//	        configuration.setAllowCredentials(true);
-//	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//	        source.registerCorsConfiguration("/**", configuration);
-//	        return source;
+//	    public WebMvcConfigurer corsConfigurer() {
+//	        return new WebMvcConfigurerAdapter() {
+//	        	 @Override
+//	             public void addCorsMappings(CorsRegistry registry) {
+//	                 registry.addMapping("/**").allowedOrigins("*");
+//	             }
+//			};
 //	    }
+		
+		@Bean
+	    CorsConfigurationSource corsConfigurationSource() {
+	        CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.setAllowedOrigins(Arrays.asList("*"));
+	        configuration.setAllowedMethods(Arrays.asList("*"));
+	        configuration.setAllowedHeaders(Arrays.asList("*"));
+	        configuration.setAllowCredentials(true);
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", configuration);
+	        return source;
+	    }
 	}
 
 }
