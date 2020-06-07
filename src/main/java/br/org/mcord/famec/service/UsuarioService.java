@@ -68,11 +68,7 @@ public class UsuarioService {
 		return updated;
 	}
 	
-	public Usuario auth(Credencial credencial) {
-		if(usuarioRepository.findAll().isEmpty()) {
-			 credencial = createUser();
-		}
-		
+	public Usuario auth(Credencial credencial) {		
 		List<Usuario> usuarios = usuarioRepository.findByNmLogin(credencial.getUsuario());
 		if(usuarios.isEmpty())
 			throw new UnauthorizedException("Usuário inválido");
@@ -95,6 +91,10 @@ public class UsuarioService {
 	private Credencial createUser() {
 		Usuario user = create(new Usuario(0, "Administrator", "admin", "admin", null, 1, null, "ADMIN"));
 		return new Credencial(user.getNmLogin(), user.getNmSenha());
+	}
+	
+	public boolean hasUser() {
+		return !usuarioRepository.findAll().isEmpty();
 	}
 
 }
