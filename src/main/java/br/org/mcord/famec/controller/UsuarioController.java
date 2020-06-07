@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.org.mcord.famec.exception.BadRequestException;
-import br.org.mcord.famec.exception.InternalServerErrorException;
 import br.org.mcord.famec.exception.NotFoundException;
 import br.org.mcord.famec.model.Usuario;
 import br.org.mcord.famec.repository.UsuarioRepository;
