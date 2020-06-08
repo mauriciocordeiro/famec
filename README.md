@@ -8,3 +8,7 @@
 
 
 API para manutenção dos cadastros de educandos da FAMEC.
+
+## Documentação
+
+Leia a [documentação da API gerada com o Swagger](https://famec.herokuapp.com/swagger-ui.html).
