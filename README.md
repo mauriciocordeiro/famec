@@ -9,6 +9,10 @@
 
 API para manutenção dos cadastros de educandos da FAMEC.
 
+## A Instituição
+
+Conheça a [Fundação de Assistência e Desenvolvimento Humano para Crianças, Adolescentes e seus Familiares de Vitória da Conquista - BA](http://www.famec.org.br/).
+
 ## Documentação
 
 Leia a [documentação da API gerada com o Swagger](https://famec.herokuapp.com/swagger-ui.html).
