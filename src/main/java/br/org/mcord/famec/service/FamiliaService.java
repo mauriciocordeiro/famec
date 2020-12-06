@@ -76,7 +76,7 @@ public class FamiliaService {
 		Familia _familia = familiaRepository.save(familia);
 		
 		if(alunos != null) {
-			for (Aluno aluno : alunos) {
+			for (Aluno aluno : alunos) {				
 				aluno.setFamilia(_familia);
 				alunoRepository.save(aluno);
 			}

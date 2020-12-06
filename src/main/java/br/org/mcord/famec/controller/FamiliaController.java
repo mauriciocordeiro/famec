@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.org.mcord.famec.exception.BadRequestException;
 import br.org.mcord.famec.exception.NotFoundException;
 import br.org.mcord.famec.exception.NotImplementedException;
 import br.org.mcord.famec.model.Familia;
@@ -105,7 +106,7 @@ public class FamiliaController {
 	public ResponseEntity<Familia> updateFamilia(@PathVariable("id") int cdFamilia, @RequestBody Familia familia) {
 		Optional<Familia> familiaData = familiaRepository.findById(cdFamilia);
 		if(!familiaData.isPresent())
-			throw new NotFoundException("Família não encontrada");
+			throw new BadRequestException("Família não encontrada");
 		
 		Familia _familia = familiaService.save(familia);
 		

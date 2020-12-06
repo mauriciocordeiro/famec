@@ -2,6 +2,7 @@ package br.org.mcord.famec.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,18 +68,21 @@ public class Aluno implements Serializable {
 	private int stAluno;
 	
 	@Column(name = "hr_saida")
-	private LocalDate hrSaida;
+	private LocalDateTime hrSaida;
 	
 	@ApiModelProperty(allowableValues = "0, 1", notes = "0: Sozinho, 1: Acompanhado")
 	@Column(name = "lg_acompanhante_saida")
 	private int lgAcompanhanteSaida;
 	
 	@Column(name = "nm_acompanhante_saida")
-	private String nmAcompanhanteSaida;
+	private String nmAcompanhanteSaida;	
 	
 	@ApiModelProperty(allowableValues = "0, 1", notes = "0: NÂO almoça na FAMEC, 1: Almoça na FAMEC")
 	@Column(name = "lg_almoco_instituicao")
 	private int lgAlmocoInstituicao;
+
+	@Column(name = "ds_hr_saida")
+	private String dsHrSaida;
 	
 	@ManyToOne
 	@JoinColumn(name = "cd_familia", nullable = false)
@@ -98,7 +102,7 @@ public class Aluno implements Serializable {
 			int tpHorarioEscolar,
 			int tpTurnoFamec,
 			int stAluno,
-			LocalDate hrSaida,
+			LocalDateTime hrSaida,
 			int lgAcompanhanteSaida,
 			String nmAcompanhanteSaida,
 			int lgAlmocoInstituicao){
@@ -191,10 +195,10 @@ public class Aluno implements Serializable {
 	public int getStAluno(){
 		return this.stAluno;
 	}
-	public void setHrSaida(LocalDate hrSaida){
+	public void setHrSaida(LocalDateTime hrSaida){
 		this.hrSaida=hrSaida;
 	}
-	public LocalDate getHrSaida(){
+	public LocalDateTime getHrSaida(){
 		return this.hrSaida;
 	}
 	public void setLgAcompanhanteSaida(int lgAcompanhanteSaida){
@@ -224,6 +228,17 @@ public class Aluno implements Serializable {
 	@JsonIgnore
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
+	}
+
+	@Override
+	public String toString() {
+		return "Aluno [cdAluno=" + cdAluno + ", cdFamilia=" + cdFamilia + ", nmAluno=" + nmAluno + ", dtNascimento="
+				+ dtNascimento + ", tpSexo=" + tpSexo + ", nmNaturalidade=" + nmNaturalidade + ", nmEscola=" + nmEscola
+				+ ", nrNivelEscolar=" + nrNivelEscolar + ", tpModalidadeEscolar=" + tpModalidadeEscolar
+				+ ", tpHorarioEscolar=" + tpHorarioEscolar + ", tpTurnoFamec=" + tpTurnoFamec + ", stAluno=" + stAluno
+				+ ", hrSaida=" + hrSaida + ", lgAcompanhanteSaida=" + lgAcompanhanteSaida + ", nmAcompanhanteSaida="
+				+ nmAcompanhanteSaida + ", lgAlmocoInstituicao=" + lgAlmocoInstituicao + ", dsHrSaida=" + dsHrSaida
+				+ ", familia=" + familia + "]";
 	}
 
 }
