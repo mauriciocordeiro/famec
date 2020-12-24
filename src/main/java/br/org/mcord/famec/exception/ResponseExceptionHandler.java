@@ -13,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import net.sf.jasperreports.engine.JRException;
 
 @ControllerAdvice
 public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
@@ -60,22 +61,29 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<ResponseError> handleInternalServerError(Exception exception, WebRequest request) throws IOException {
 		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
 		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
+	}	
 	@ExceptionHandler(NullPointerException.class)
 	public ResponseEntity<ResponseError> handleNullPointerException(Exception exception, WebRequest request) throws IOException {
 		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
 		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
+	}	
 	@ExceptionHandler(ArrayIndexOutOfBoundsException.class)
 	public ResponseEntity<ResponseError> handleArrayIndexOutOfBoundsException(Exception exception, WebRequest request) throws IOException {
 		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
 		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
+	}	
 	@ExceptionHandler(StackOverflowError.class)
 	public ResponseEntity<ResponseError> handleStackOverflowError(Exception exception, WebRequest request) throws IOException {
+		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
+		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<ResponseError> handleIOException(Exception exception, WebRequest request) throws IOException {
+		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
+		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
+	@ExceptionHandler(JRException.class)
+	public ResponseEntity<ResponseError> handleJRException(Exception exception, WebRequest request) throws IOException {
 		ResponseError err = new ResponseError(LocalDateTime.now(), 500, HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());		
 		return new ResponseEntity<ResponseError>(err, HttpStatus.INTERNAL_SERVER_ERROR);
 	}

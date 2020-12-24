@@ -1,5 +1,6 @@
 package br.org.mcord.famec.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import net.sf.jasperreports.engine.JRException;
 
 @Api(tags = {"Famílias"})
 @RestController
@@ -140,8 +142,25 @@ public class FamiliaController {
 	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@GetMapping("/{id}/matriculas")
-	public ResponseEntity<byte[]> getReport(@PathVariable("id") int cdFamilia) {
+	public ResponseEntity<byte[]> getMatriculaReport(@PathVariable("id") int cdFamilia) {
 		throw new NotImplementedException("Recurso não implementado");
+	}
+	
+	// TODO:
+	@ApiOperation(value = "Gera comprovante de matrícula dos alunos da familia")
+	@ApiResponses(value = {
+			@ApiResponse(code = 501, message = "Recurso não implementado")
+	})
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+	@GetMapping("/report")
+	public ResponseEntity<byte[]> getAlunoReport(
+			@RequestParam(name = "aluno", required = false) String nmAluno,
+			@RequestParam(name = "responsavel", required = false) String nmResponsavel,
+			@RequestParam(name = "prontuario", required = false) String nrProntuario) throws JRException, IOException {
+		
+		byte[] report = familiaService.getReport(null, null, null);
+		
+		return ResponseEntity.ok(report);
 	}
 
 }
