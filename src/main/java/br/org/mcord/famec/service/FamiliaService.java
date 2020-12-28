@@ -148,7 +148,7 @@ public class FamiliaService {
 				br.org.mcord.famec.model.report.Aluno item = new br.org.mcord.famec.model.report.Aluno(
 						aluno.getNmAluno(), 
 						familia.getNrProntuario(), 
-						new SimpleDateFormat("dd/MM/yyyy").format(aluno.getDtNascimento()), 
+						"dd/mm/yyyy", //new SimpleDateFormat("dd/MM/yyyy").format(aluno.getDtNascimento()), 
 						"10", 
 						(aluno.getTpSexo()==1 ? "M" : "F"), 
 						familia.getResponsavel().getNrTelefone1(), 
