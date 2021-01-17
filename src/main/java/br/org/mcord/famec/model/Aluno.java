@@ -87,6 +87,10 @@ public class Aluno implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "cd_familia", nullable = false)
 	private Familia familia;
+	
+	@ManyToOne
+	@JoinColumn(name = "cd_escola", nullable = false)
+	private Escola escola;
 
 	public Aluno(){ }
 
@@ -220,6 +224,15 @@ public class Aluno implements Serializable {
 		return this.lgAlmocoInstituicao;
 	}
 
+
+	public String getDsHrSaida() {
+		return dsHrSaida;
+	}
+
+	public void setDsHrSaida(String dsHrSaida) {
+		this.dsHrSaida = dsHrSaida;
+	}	
+
 	@JsonIgnore
 	public Familia getFamilia() {
 		return familia;
@@ -228,6 +241,16 @@ public class Aluno implements Serializable {
 	@JsonIgnore
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
+	}
+	
+	@JsonIgnore
+	public Escola getEscola() {
+		return escola;
+	}
+	
+	@JsonIgnore
+	public void setEscola(Escola escola) {
+		this.escola = escola;
 	}
 
 	@Override

@@ -73,6 +73,7 @@ public class FamiliaService {
 			return familiaRepository.findByNrProntuarioContaining(nrProntuario);
 		} else {
 			if(nmAluno == null && nmResponsavel == null) {
+				System.out.println("findAll");
 				return familiaRepository.findAll();
 			} if(nmAluno != null && nmResponsavel == null) {
 				return familiaRepository.findByAlunosNmAlunoContaining(nmAluno);

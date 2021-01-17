@@ -141,24 +141,24 @@ public class FamiliaController {
 			@ApiResponse(code = 501, message = "Recurso não implementado")
 	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-	@GetMapping("/{id}/matriculas")
+	@GetMapping(path = "/{id}/matriculas", produces = "application/pdf")
 	public ResponseEntity<byte[]> getMatriculaReport(@PathVariable("id") int cdFamilia) {
 		throw new NotImplementedException("Recurso não implementado");
 	}
 	
 	// TODO:
-	@ApiOperation(value = "Gera comprovante de matrícula dos alunos da familia")
+	@ApiOperation(value = "Gera lista de alunos")
 	@ApiResponses(value = {
 			@ApiResponse(code = 501, message = "Recurso não implementado")
 	})
 	@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-	@GetMapping("/report")
+	@GetMapping(path = "/report", produces = "application/pdf")
 	public ResponseEntity<byte[]> getAlunoReport(
 			@RequestParam(name = "aluno", required = false) String nmAluno,
 			@RequestParam(name = "responsavel", required = false) String nmResponsavel,
 			@RequestParam(name = "prontuario", required = false) String nrProntuario) throws JRException, IOException {
 		
-		byte[] report = familiaService.getReport(null, null, null);
+		byte[] report = familiaService.getReport(nmAluno, nmResponsavel, nrProntuario);
 		
 		return ResponseEntity.ok(report);
 	}
